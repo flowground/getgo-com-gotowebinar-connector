@@ -1,0 +1,133 @@
+{
+    "type": "object",
+    "properties": {
+        "Authorization": {
+            "required": true,
+            "type": "string"
+        },
+        "organizerKey": {
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+        },
+        "webinarKey": {
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+        },
+        "Accept": {
+            "required": false,
+            "type": "string"
+        },
+        "resendConfirmation": {
+            "required": false,
+            "type": "boolean"
+        },
+        "requestBody": {
+            "description": "Detailed description of a all fields to register a registrant for a webinar.",
+            "properties": {
+                "address": {
+                    "description": "The registrant's address",
+                    "type": "string"
+                },
+                "city": {
+                    "description": "The registrant's city",
+                    "type": "string"
+                },
+                "country": {
+                    "description": "The registrant's country",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "The registrant's email address",
+                    "type": "string"
+                },
+                "firstName": {
+                    "description": "The registrant's first name",
+                    "type": "string"
+                },
+                "industry": {
+                    "description": "The type of industry the registrant's organization belongs to",
+                    "type": "string"
+                },
+                "jobTitle": {
+                    "description": "The registrant's job title",
+                    "type": "string"
+                },
+                "lastName": {
+                    "description": "The registrant's last name",
+                    "type": "string"
+                },
+                "numberOfEmployees": {
+                    "description": "The size in employees of the registrant's organization",
+                    "type": "string"
+                },
+                "organization": {
+                    "description": "The registrant's organization",
+                    "type": "string"
+                },
+                "phone": {
+                    "description": "The registrant's phone",
+                    "type": "string"
+                },
+                "purchasingRole": {
+                    "description": "The registrant's role in purchasing the product",
+                    "type": "string"
+                },
+                "purchasingTimeFrame": {
+                    "description": "The time frame within which the product will be purchased",
+                    "type": "string"
+                },
+                "questionsAndComments": {
+                    "description": "Any questions or comments the registrant made at the time of registration",
+                    "type": "string"
+                },
+                "responses": {
+                    "description": "Set the answers of all questions",
+                    "items": {
+                        "description": "Describes a completed registration question for a webinar registrant. If you use 'Multiple choice' questions the response contains the numeric answerKey, otherwise the answer text. Example:<br>{<br>  \"firstName\": \"First\",<br>  \"lastName\": \"Last\",<br>  \"email\": \"First.Last@example.com\",<br>  \"responses\": [{<br>      \"questionKey\": 17023549,<br>      \"responseText\": \"This is a short answer\"},{<br>      \"questionKey\": 17023550,<br>      \"answerKey\": 17023553}  ]<br>}",
+                        "properties": {
+                            "answerKey": {
+                                "description": "The numeric key of the answer to a multiple-choice question.",
+                                "format": "int64",
+                                "type": "integer"
+                            },
+                            "questionKey": {
+                                "description": "The unique key of the question",
+                                "format": "int64",
+                                "type": "integer"
+                            },
+                            "responseText": {
+                                "description": "Answer of the question.",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "questionKey"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "source": {
+                    "description": "The source that led to the registration. This can be any string like 'Newsletter 123' or 'Marketing campaign ABC'",
+                    "type": "string"
+                },
+                "state": {
+                    "description": "The registrant's state (US only)",
+                    "type": "string"
+                },
+                "zipCode": {
+                    "description": "The registrant's zip (post) code",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "firstName",
+                "lastName",
+                "email"
+            ],
+            "type": "object"
+        }
+    }
+}

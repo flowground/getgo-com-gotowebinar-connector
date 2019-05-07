@@ -1,0 +1,29 @@
+{
+    "type": "object",
+    "properties": {
+        "Authorization": {
+            "required": true,
+            "type": "string"
+        },
+        "organizerKey": {
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+        },
+        "webinarKey": {
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+        },
+        "sessionKey": {
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+        },
+        "registrantKey": {
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+        }
+    }
+}

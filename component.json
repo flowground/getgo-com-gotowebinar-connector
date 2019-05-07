@@ -1,0 +1,680 @@
+{
+    "title": "GoToWebinar",
+    "description": "The GoToWebinar API provides seamless integration of webinar registrant and attendee data into your existing infrastructure or third-party applications. The ability to register participants, as well as pull lists of registrants and attendees for a webinar, allows organizers to manage the flow of information between their primary applications without manual intervention.",
+    "docsUrl": "",
+    "url": "https://api.apis.guru/v2/specs/getgo.com/gotowebinar/1.0.0/swagger.json",
+    "envVars": {},
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://api.getgo.com/G2W/rest",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            }
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "getAllAccountWebinars": {
+            "main": "./lib/actions/getAllAccountWebinars.js",
+            "title": "Get all webinars for an account",
+            "description": "Retrieves the list of webinars for an account within a given date range. __*Page*__ and __*size*__ parameters are optional. Default __*page*__ is 0 and default __*size*__ is 20. For technical reasons, this call cannot be executed from this documentation. Please use the curl command to execute it.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getAllAccountWebinars.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getHistoricalWebinars": {
+            "main": "./lib/actions/getHistoricalWebinars.js",
+            "title": "Get historical webinars",
+            "description": "Returns details for completed webinars for the specified organizer and completed webinars of other organizers where the specified organizer is a co-organizer.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getHistoricalWebinars.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getOrganizerSessions": {
+            "main": "./lib/actions/getOrganizerSessions.js",
+            "title": "Get organizer sessions",
+            "description": "Retrieve all completed sessions of all the webinars of a given organizer.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getOrganizerSessions.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getUpcomingWebinars": {
+            "main": "./lib/actions/getUpcomingWebinars.js",
+            "title": "Get upcoming webinars",
+            "description": "Returns webinars scheduled for the future for the specified organizer and webinars of other organizers where the specified organizer is a co-organizer.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getUpcomingWebinars.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getAllWebinars": {
+            "main": "./lib/actions/getAllWebinars.js",
+            "title": "Get all webinars",
+            "description": "Returns webinars scheduled for the future for a specified organizer.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getAllWebinars.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "createWebinar": {
+            "main": "./lib/actions/createWebinar.js",
+            "title": "Create webinar",
+            "description": "Creates a single session webinar, a sequence of webinars or a series of webinars depending on the type field in the body: \"single_session\" creates a single webinar session, \"sequence\" creates a webinar with multiple meeting times where attendees are expected to be the same for all sessions, and \"series\" creates a webinar with multiple meetings times where attendees choose only one to attend. The default, if no type is declared, is single_session. A sequence webinar requires a \"recurrenceStart\" object consisting of a \"startTime\" and \"endTime\" key for the first webinar of the sequence, a \"recurrencePattern\" of \"daily\", \"weekly\", \"monthly\", and a \"recurrenceEnd\" which is the last date of the sequence (for example, 2016-12-01). A series webinar requires a \"times\" array with a discrete \"startTime\" and \"endTime\" for each webinar in the series. The call requires a webinar subject and description. The \"isPasswordProtected\" sets whether the webinar requires a password for attendees to join. If set to True, the organizer must go to Registration Settings at My Webinars (https://global.gotowebinar.com/webinars.tmpl) and add the password to the webinar, and send the password to the registrants. The response provides a numeric webinarKey in string format for the new webinar. Once a webinar has been created with this method, you can accept registrations.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/createWebinar.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "cancelWebinar": {
+            "main": "./lib/actions/cancelWebinar.js",
+            "title": "Cancel webinar",
+            "description": "Cancels a specific webinar. If the webinar is a series or sequence, this call deletes all scheduled sessions. To send cancellation emails to registrants set sendCancellationEmails=true in the request. When the cancellation emails are sent, the default generated message is used in the cancellation email body.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/cancelWebinar.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getWebinar": {
+            "main": "./lib/actions/getWebinar.js",
+            "title": "Get webinar",
+            "description": "Retrieve information on a specific webinar. If the type of the webinar is 'sequence', a sequence of future times will be provided. Webinars of type 'series' are treated the same as normal webinars - each session in the webinar series has a different webinarKey. If an organizer cancels a webinar, then a request to get that webinar would return a '404 Not Found' error.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getWebinar.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "updateWebinar": {
+            "main": "./lib/actions/updateWebinar.js",
+            "title": "Update webinar",
+            "description": "Updates a webinar. The call requires at least one of the parameters in the request body. The request completely replaces the existing session, series, or sequence and so must include the full definition of each as for the Create call. Set notifyParticipants=true to send update emails to registrants.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/updateWebinar.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getAttendeesForAllWebinarSessions": {
+            "main": "./lib/actions/getAttendeesForAllWebinarSessions.js",
+            "title": "Get attendees for all webinar sessions",
+            "description": "Returns all attendees for all sessions of the specified webinar.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getAttendeesForAllWebinarSessions.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getAudioInformation": {
+            "main": "./lib/actions/getAudioInformation.js",
+            "title": "Get audio information",
+            "description": "Retrieves the audio/conferencing information for a specific webinar.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getAudioInformation.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "updateAudioInformation": {
+            "main": "./lib/actions/updateAudioInformation.js",
+            "title": "Update audio information",
+            "description": "Updates the audio/conferencing settings for a specific webinar",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/updateAudioInformation.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getCoorganizers": {
+            "main": "./lib/actions/getCoorganizers.js",
+            "title": "Get co-organizers",
+            "description": "Returns the co-organizers for the specified webinar. The original organizer who created the webinar is filtered out of the list. If the webinar has no co-organizers, an empty array is returned. Co-organizers that do not have a GoToWebinar account are returned as external co-organizers. For those organizers no surname is returned.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getCoorganizers.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "createCoorganizers": {
+            "main": "./lib/actions/createCoorganizers.js",
+            "title": "Create co-organizers",
+            "description": "Creates co-organizers for the specified webinar. For co-organizers that have a GoToWebinar account you have to set the parameter 'external' to 'false'. In this case you have to pass the parameter 'organizerKey' only. For co-organizers that have no GoToWebinar account you have to set the parameter 'external' to 'true'. In this case you have to pass the parameters 'givenName' and 'email'. Since there is no parameter for 'surname' you should pass first and last name to the parameter 'givenName'.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/createCoorganizers.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "deleteCoorganizer": {
+            "main": "./lib/actions/deleteCoorganizer.js",
+            "title": "Delete co-organizer",
+            "description": "Deletes an internal co-organizer specified by the coorganizerKey (memberKey).",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/deleteCoorganizer.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "resendCoorganizerInvitation": {
+            "main": "./lib/actions/resendCoorganizerInvitation.js",
+            "title": "Resend invitation",
+            "description": "Resends an invitation email to the specified co-organizer",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/resendCoorganizerInvitation.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getWebinarMeetingTimes": {
+            "main": "./lib/actions/getWebinarMeetingTimes.js",
+            "title": "Get webinar meeting times",
+            "description": "Retrieves the meeting times for a webinar.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getWebinarMeetingTimes.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getPanelists": {
+            "main": "./lib/actions/getPanelists.js",
+            "title": "Get webinar panelists",
+            "description": "Retrieves all the panelists for a specific webinar.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getPanelists.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "createPanelists": {
+            "main": "./lib/actions/createPanelists.js",
+            "title": "Create Panelists",
+            "description": "Create panelists for a specified webinar",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/createPanelists.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "deleteWebinarPanelist": {
+            "main": "./lib/actions/deleteWebinarPanelist.js",
+            "title": "Delete webinar panelist",
+            "description": "Removes a webinar panelist.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/deleteWebinarPanelist.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "resendPanelistInvitation": {
+            "main": "./lib/actions/resendPanelistInvitation.js",
+            "title": "Resend panelist invitation",
+            "description": "Resend the panelist invitation email.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/resendPanelistInvitation.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getPerformanceForAllWebinarSessions": {
+            "main": "./lib/actions/getPerformanceForAllWebinarSessions.js",
+            "title": "Get performance for all webinar sessions",
+            "description": "Gets performance details for all sessions of a specific webinar.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getPerformanceForAllWebinarSessions.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getAllRegistrantsForWebinar": {
+            "main": "./lib/actions/getAllRegistrantsForWebinar.js",
+            "title": "Get registrants",
+            "description": "Retrieve registration details for all registrants of a specific webinar. Registrant details will not include all fields captured when creating the registrant. To see all data, use the API call 'Get Registrant'. Registrants can have one of the following states; <br>WAITING - registrant registered and is awaiting approval (where organizer has required approval), <br>APPROVED - registrant registered and is approved, and <br>DENIED - registrant registered and was denied.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getAllRegistrantsForWebinar.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "createRegistrant": {
+            "main": "./lib/actions/createRegistrant.js",
+            "title": "Create registrant",
+            "description": "Register an attendee for a scheduled webinar. The response contains the registrantKey and join URL for the registrant. An email will be sent to the registrant unless the organizer turns off the confirmation email setting from the GoToWebinar website. Please note that you must provide all required fields including custom fields defined during the webinar creation. Use the API call 'Get registration fields' to get a list of all fields, if they are required, and their possible values. At this time there are two versions of the 'Create Registrant' call. The first version only accepts firstName, lastName, and email and ignores all other fields. If you have custom fields or want to capture additional information this version won't work for you. The second version allows you to pass all required and optional fields, including custom fields defined when creating the webinar. To use the second version you must pass the header value 'Accept: application/vnd.citrix.g2wapi-v1.1+json' instead of 'Accept: application/json'. Leaving this header out results in the first version of the API call.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/createRegistrant.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getRegistrationFields": {
+            "main": "./lib/actions/getRegistrationFields.js",
+            "title": "Get registration fields",
+            "description": "Retrieve required, optional registration, and custom questions for a specified webinar.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getRegistrationFields.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "deleteRegistrant": {
+            "main": "./lib/actions/deleteRegistrant.js",
+            "title": "Delete registrant",
+            "description": "Removes a webinar registrant from current registrations for the specified webinar. The webinar must be a scheduled, future webinar.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/deleteRegistrant.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getRegistrant": {
+            "main": "./lib/actions/getRegistrant.js",
+            "title": "Get registrant",
+            "description": "Retrieve registration details for a specific registrant.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getRegistrant.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getAllSessions": {
+            "main": "./lib/actions/getAllSessions.js",
+            "title": "Get webinar sessions",
+            "description": "Retrieves details for all past sessions of a specific webinar.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getAllSessions.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getWebinarSession": {
+            "main": "./lib/actions/getWebinarSession.js",
+            "title": "Get webinar session",
+            "description": "Retrieves attendance details for a specific webinar session that has ended. If attendees attended the session ('registrantsAttended'), specific attendance details, such as attendenceTime for a registrant, will also be retrieved. For technical reasons, this call cannot be executed from this documentation. Please use the curl command to execute it.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getWebinarSession.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getAttendees": {
+            "main": "./lib/actions/getAttendees.js",
+            "title": "Get session attendees",
+            "description": "Retrieve details for all attendees of a specific webinar session. For technical reasons, this call cannot be executed from this documentation. Please use the curl command to execute it.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getAttendees.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getAttendee": {
+            "main": "./lib/actions/getAttendee.js",
+            "title": "Get attendee",
+            "description": "Retrieve registration details for a particular attendee of a specific webinar session. For technical reasons, this call cannot be executed from this documentation. Please use the curl command to execute it.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getAttendee.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getAttendeePollAnswers": {
+            "main": "./lib/actions/getAttendeePollAnswers.js",
+            "title": "Get attendee poll answers",
+            "description": "Get poll answers from a particular attendee of a specific webinar session. For technical reasons, this call cannot be executed from this documentation. Please use the curl command to execute it.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getAttendeePollAnswers.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getAttendeeQuestions": {
+            "main": "./lib/actions/getAttendeeQuestions.js",
+            "title": "Get attendee questions",
+            "description": "Get questions asked by an attendee during a webinar session. For technical reasons, this call cannot be executed from this documentation. Please use the curl command to execute it.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getAttendeeQuestions.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getAttendeeSurveyAnswers": {
+            "main": "./lib/actions/getAttendeeSurveyAnswers.js",
+            "title": "Get attendee survey answers",
+            "description": "Retrieve survey answers from a particular attendee during a webinar session. For technical reasons, this call cannot be executed from this documentation. Please use the curl command to execute it.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getAttendeeSurveyAnswers.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getPerformance": {
+            "main": "./lib/actions/getPerformance.js",
+            "title": "Get session performance",
+            "description": "Get performance details for a session. For technical reasons, this call cannot be executed from this documentation. Please use the curl command to execute it.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getPerformance.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getPolls": {
+            "main": "./lib/actions/getPolls.js",
+            "title": "Get session polls",
+            "description": "Retrieve all collated attendee questions and answers for polls from a specific webinar session. For technical reasons, this call cannot be executed from this documentation. Please use the curl command to execute it.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getPolls.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getQuestions": {
+            "main": "./lib/actions/getQuestions.js",
+            "title": "Get session questions",
+            "description": "Retrieve questions and answers for a past webinar session. For technical reasons, this call cannot be executed from this documentation. Please use the curl command to execute it.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getQuestions.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "getSurveys": {
+            "main": "./lib/actions/getSurveys.js",
+            "title": "Get session surveys",
+            "description": "Retrieve surveys for a past webinar session. For technical reasons, this call cannot be executed from this documentation. Please use the curl command to execute it.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/getSurveys.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}

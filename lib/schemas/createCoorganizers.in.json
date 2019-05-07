@@ -1,0 +1,47 @@
+{
+    "type": "object",
+    "properties": {
+        "Authorization": {
+            "required": true,
+            "type": "string"
+        },
+        "organizerKey": {
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+        },
+        "webinarKey": {
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+        },
+        "requestBody": {
+            "items": {
+                "description": "Details used for creating a co-organizer for a webinar. ",
+                "properties": {
+                    "email": {
+                        "description": "The co-organizer's email address. This parameter has to be passed only, if 'external' is set to 'true'",
+                        "type": "string"
+                    },
+                    "external": {
+                        "description": "If the co-organizer has no GoToWebinar account, this value has to be set to 'true'",
+                        "type": "boolean"
+                    },
+                    "givenName": {
+                        "description": "The co-organizer's given name. This parameter has to be passed only, if 'external' is set to 'true'",
+                        "type": "string"
+                    },
+                    "organizerKey": {
+                        "description": "The co-organizer's organizer key. This parameter has to be passed only, if 'external' is set to 'false'",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "external"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        }
+    }
+}

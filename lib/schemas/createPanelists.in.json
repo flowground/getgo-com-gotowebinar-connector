@@ -1,0 +1,40 @@
+{
+    "type": "object",
+    "properties": {
+        "Authorization": {
+            "required": true,
+            "type": "string"
+        },
+        "organizerKey": {
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+        },
+        "webinarKey": {
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+        },
+        "requestBody": {
+            "items": {
+                "description": "Describes a single panelist",
+                "properties": {
+                    "email": {
+                        "description": "The panelist's email address",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "The panelist's name",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "email",
+                    "name"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        }
+    }
+}

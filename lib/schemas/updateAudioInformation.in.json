@@ -1,0 +1,163 @@
+{
+    "type": "object",
+    "properties": {
+        "Authorization": {
+            "required": true,
+            "type": "string"
+        },
+        "organizerKey": {
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+        },
+        "webinarKey": {
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+        },
+        "notifyParticipants": {
+            "required": false,
+            "type": "boolean"
+        },
+        "requestBody": {
+            "description": "Defines the audio/conferencing settings for the specified webinar",
+            "properties": {
+                "privateInfo": {
+                    "description": "Defines the audio data for an own conferencing system",
+                    "type": "object",
+                    "properties": {
+                        "attendee": {
+                            "description": "Attendee phone number for own conference call system",
+                            "type": "string"
+                        },
+                        "organizer": {
+                            "description": "Organizer phone number for own conference call system",
+                            "type": "string"
+                        },
+                        "panelist": {
+                            "description": "Panelist phone number for own conference call system",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "attendee"
+                    ]
+                },
+                "pstnInfo": {
+                    "description": "Defines via two-letter Alpha-2-code which toll and toll-free PSTN numbers are available per country",
+                    "type": "object",
+                    "properties": {
+                        "tollCountries": {
+                            "description": "Defines in which countries toll PSTN numbers are available. Possible values are AT, AU, BE, CA, CH, DE, DK, ES, FI, FR, GB, IE, IT, NL, NO, NZ, SE, US",
+                            "items": {
+                                "description": "Defines in which countries toll PSTN numbers are available.",
+                                "enum": [
+                                    "AT",
+                                    "AU",
+                                    "BE",
+                                    "CA",
+                                    "CH",
+                                    "DE",
+                                    "DK",
+                                    "ES",
+                                    "FI",
+                                    "FR",
+                                    "GB",
+                                    "IE",
+                                    "IT",
+                                    "NL",
+                                    "NO",
+                                    "NZ",
+                                    "SE",
+                                    "US"
+                                ],
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "tollFreeCountries": {
+                            "description": "Defines in which countries toll free PSTN numbers are available. Possible values are AE, AR, AT, AU, BE, BG, BH, BR, BY, CA, CH, CL, CN, CO, CZ, DE, DK, ES, FI, FR, GB, GR, HK, HU, ID, IE, IL, IN, IS, IT, JP, KR, LU, MX, MY, NL, NO, NZ, PA, PE, PH, PL, PT, RO, RU, SA, SE, SG, TH, TR, TW, UA, US, UY, VN, ZA",
+                            "items": {
+                                "description": "Countries in which toll free PSTN numbers are available.",
+                                "enum": [
+                                    "AE",
+                                    "AR",
+                                    "AT",
+                                    "AU",
+                                    "BE",
+                                    "BG",
+                                    "BH",
+                                    "BR",
+                                    "BY",
+                                    "CA",
+                                    "CH",
+                                    "CL",
+                                    "CN",
+                                    "CO",
+                                    "CZ",
+                                    "DE",
+                                    "DK",
+                                    "ES",
+                                    "FI",
+                                    "FR",
+                                    "GB",
+                                    "GR",
+                                    "HK",
+                                    "HU",
+                                    "ID",
+                                    "IE",
+                                    "IL",
+                                    "IN",
+                                    "IS",
+                                    "IT",
+                                    "JP",
+                                    "KR",
+                                    "LU",
+                                    "MX",
+                                    "MY",
+                                    "NL",
+                                    "NO",
+                                    "NZ",
+                                    "PA",
+                                    "PE",
+                                    "PH",
+                                    "PL",
+                                    "PT",
+                                    "RO",
+                                    "RU",
+                                    "SA",
+                                    "SE",
+                                    "SG",
+                                    "TH",
+                                    "TR",
+                                    "TW",
+                                    "UA",
+                                    "US",
+                                    "UY",
+                                    "VN",
+                                    "ZA"
+                                ],
+                                "type": "string"
+                            },
+                            "type": "array"
+                        }
+                    }
+                },
+                "type": {
+                    "description": "Indicates how to connect to the webinar's audio conference",
+                    "enum": [
+                        "PSTN",
+                        "VOIP",
+                        "Hybrid",
+                        "Private"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "type"
+            ],
+            "type": "object"
+        }
+    }
+}

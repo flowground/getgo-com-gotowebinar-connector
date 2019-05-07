@@ -1,0 +1,77 @@
+{
+    "type": "object",
+    "properties": {
+        "Authorization": {
+            "required": true,
+            "type": "string"
+        },
+        "organizerKey": {
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+        },
+        "webinarKey": {
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+        },
+        "notifyParticipants": {
+            "required": false,
+            "type": "boolean"
+        },
+        "requestBody": {
+            "description": "Describes the details of the webinar",
+            "properties": {
+                "description": {
+                    "description": "A description of the webinar (2048 characters maximum)",
+                    "type": "string"
+                },
+                "locale": {
+                    "description": "The webinar language",
+                    "enum": [
+                        "en_US",
+                        "de_DE",
+                        "es_ES",
+                        "fr_FR",
+                        "it_IT",
+                        "zh_CN"
+                    ],
+                    "type": "string"
+                },
+                "subject": {
+                    "description": "The name/subject of the webinar (128 characters maximum)",
+                    "type": "string"
+                },
+                "timeZone": {
+                    "description": "The time zone where the webinar is taking place (must be a valid time zone ID, see https://goto-developer.logmein.com/time-zones). If this parameter is not passed, the timezone of the organizer's profile will be used",
+                    "type": "string"
+                },
+                "times": {
+                    "description": "Array with start and end time(s) for webinar",
+                    "items": {
+                        "description": "A pair of DateTime values, the first of which serves as a start time and the second as an end time of an interval.",
+                        "properties": {
+                            "endTime": {
+                                "description": "The ending time of an interval, e.g. 2015-07-13T22:00:00Z",
+                                "format": "date-time",
+                                "type": "string"
+                            },
+                            "startTime": {
+                                "description": "The starting time of an interval, e.g. 2015-07-13T10:00:00Z",
+                                "format": "date-time",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "startTime",
+                            "endTime"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        }
+    }
+}
